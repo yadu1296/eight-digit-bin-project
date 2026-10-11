@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: eight-digit-bin-postgres
+    environment:
+      POSTGRES_USER: eightdigit
+      POSTGRES_PASSWORD: eightdigit
+      POSTGRES_DB: eight_digit_bin
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U eightdigit -d eight_digit_bin"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  pgdata:
